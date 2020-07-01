@@ -1,3 +1,13 @@
+/**
+ * @file ultrasonic.cpp
+ * @author Elvandry Ghiffary (elvandry13@gmail.com)
+ * @brief Ultrasonic sensor for detecting person
+ * @version 0.1
+ * @date 2020-07-01
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
 #include "ultrasonic.h"
 
 void ultrasonic_setup_pin(const uint8_t trigPin, const uint8_t echoPin)
