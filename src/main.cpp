@@ -1,11 +1,11 @@
 #include <Arduino.h>
 #include "ultrasonic.h"
 
-#define trigPinU1 D2
-#define echoPinU1 D3
+#define trigPinU1 2
+#define echoPinU1 3
 
-#define trigPinU2 D4
-#define echoPinU2 D5
+#define trigPinU2 4
+#define echoPinU2 5
 
 int person = 0;
 
