@@ -13,8 +13,6 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // Set the LCD I2C address
-
 // IN ultrasonic pins
 #define trigPinU1 2
 #define echoPinU1 3
@@ -22,6 +20,13 @@ LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // Set the LCD I
 // OUT ultrasonic pins
 #define trigPinU2 4
 #define echoPinU2 5
+
+// LED and Buzzer pins
+#define greenLED 6
+#define redLED 7
+#define buzzer 8
+
+LiquidCrystal_I2C lcd(0x3F, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // Set the LCD I2C address
 
 int person = 0;
 int lastPerson = 0;
@@ -34,6 +39,14 @@ void setup()
 	// Ultrasonic setup pin
 	ultrasonic_setup_pin(trigPinU1, echoPinU1);
 	ultrasonic_setup_pin(trigPinU2, echoPinU2);
+
+	// LED and Buzzer setup pin
+	pinMode(greenLED, OUTPUT);
+	pinMode(redLED, OUTPUT);
+	pinMode(buzzer, OUTPUT);
+    digitalWrite(greenLED, LOW);
+    digitalWrite(redLED, LOW);
+    digitalWrite(buzzer, LOW);
 
 	// LCD init
 	lcd.begin(16,2);
@@ -69,4 +82,26 @@ void loop()
 		lcd.print(person);
 	}
 	lastPerson = person;
+
+	// Warning status
+	if (person >= 10)
+	{
+		// Red LED ON, green LED OFF
+		digitalWrite(greenLED, LOW);
+		digitalWrite(redLED, HIGH);
+
+		// Alarm ON
+		digitalWrite(buzzer, HIGH);
+		delay(1000);
+		digitalWrite(buzzer, LOW);
+		delay(1000);
+	}
+	else
+	{
+		// Green LED ON, red LED OFF
+		digitalWrite(redLED, LOW);
+		digitalWrite(greenLED, HIGH);
+		digitalWrite(buzzer, LOW);
+	}
+	
 }
